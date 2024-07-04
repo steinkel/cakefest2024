@@ -5,7 +5,6 @@ namespace ReportBuilder\Test\TestCase\Controller;
 
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
-use ReportBuilder\Controller\ReportsController;
 
 /**
  * ReportBuilder\Controller\ReportsController Test Case

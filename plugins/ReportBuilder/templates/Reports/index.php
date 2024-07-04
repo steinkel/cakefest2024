@@ -17,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($reports as $report): ?>
+                <?php foreach ($reports as $report) : ?>
                 <tr>
                     <td><?= $this->Number->format($report->id) ?></td>
                     <td><?= h($report->name) ?></td>

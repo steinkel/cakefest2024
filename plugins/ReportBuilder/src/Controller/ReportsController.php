@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Controller;
 
-use ReportBuilder\Controller\AppController;
-
 /**
  * Reports Controller
  *
