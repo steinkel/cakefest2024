@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($memberRoles as $memberRole): ?>
+                <?php foreach ($memberRoles as $memberRole) : ?>
                 <tr>
                     <td><?= $this->Number->format($memberRole->id) ?></td>
                     <td><?= $memberRole->hasValue('member') ? $this->Html->link($memberRole->member->id, ['controller' => 'Members', 'action' => 'view', $memberRole->member->id]) : '' ?></td>

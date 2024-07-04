@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($issues as $issue): ?>
+                <?php foreach ($issues as $issue) : ?>
                 <tr>
                     <td><?= $this->Number->format($issue->id) ?></td>
                     <td><?= $issue->hasValue('tracker') ? $this->Html->link($issue->tracker->name, ['controller' => 'Trackers', 'action' => 'view', $issue->tracker->id]) : '' ?></td>

@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -14,7 +13,6 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\ProjectsTable&\Cake\ORM\Association\BelongsTo $Projects
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @property \App\Model\Table\IssuesTable&\Cake\ORM\Association\BelongsTo $Issues
- *
  * @method \App\Model\Entity\TimeEntry newEmptyEntity()
  * @method \App\Model\Entity\TimeEntry newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\TimeEntry> newEntities(array $data, array $options = [])

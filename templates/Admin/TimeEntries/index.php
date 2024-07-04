@@ -30,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($timeEntries as $timeEntry): ?>
+                <?php foreach ($timeEntries as $timeEntry) : ?>
                 <tr>
                     <td><?= $this->Number->format($timeEntry->id) ?></td>
                     <td><?= $timeEntry->hasValue('project') ? $this->Html->link($timeEntry->project->name, ['controller' => 'Projects', 'action' => 'view', $timeEntry->project->id]) : '' ?></td>

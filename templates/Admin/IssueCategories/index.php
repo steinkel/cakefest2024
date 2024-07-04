@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($issueCategories as $issueCategory): ?>
+                <?php foreach ($issueCategories as $issueCategory) : ?>
                 <tr>
                     <td><?= $this->Number->format($issueCategory->id) ?></td>
                     <td><?= $issueCategory->hasValue('project') ? $this->Html->link($issueCategory->project->name, ['controller' => 'Projects', 'action' => 'view', $issueCategory->project->id]) : '' ?></td>

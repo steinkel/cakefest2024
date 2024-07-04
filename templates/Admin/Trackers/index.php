@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($trackers as $tracker): ?>
+                <?php foreach ($trackers as $tracker) : ?>
                 <tr>
                     <td><?= $this->Number->format($tracker->id) ?></td>
                     <td><?= h($tracker->name) ?></td>

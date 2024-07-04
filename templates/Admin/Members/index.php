@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($members as $member): ?>
+                <?php foreach ($members as $member) : ?>
                 <tr>
                     <td><?= $this->Number->format($member->id) ?></td>
                     <td><?= $member->hasValue('user') ? $this->Html->link($member->user->login, ['controller' => 'Users', 'action' => 'view', $member->user->id]) : '' ?></td>

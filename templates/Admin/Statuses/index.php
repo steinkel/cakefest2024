@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($statuses as $status): ?>
+                <?php foreach ($statuses as $status) : ?>
                 <tr>
                     <td><?= $this->Number->format($status->id) ?></td>
                     <td><?= $status->hasValue('user') ? $this->Html->link($status->user->login, ['controller' => 'Users', 'action' => 'view', $status->user->id]) : '' ?></td>

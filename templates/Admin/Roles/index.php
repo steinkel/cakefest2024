@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($roles as $role): ?>
+                <?php foreach ($roles as $role) : ?>
                 <tr>
                     <td><?= $this->Number->format($role->id) ?></td>
                     <td><?= h($role->name) ?></td>

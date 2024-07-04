@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($projects as $project): ?>
+                <?php foreach ($projects as $project) : ?>
                 <tr>
                     <td><?= $this->Number->format($project->id) ?></td>
                     <td><?= h($project->name) ?></td>

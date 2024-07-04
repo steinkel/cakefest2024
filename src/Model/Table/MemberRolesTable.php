@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -13,7 +12,6 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\MembersTable&\Cake\ORM\Association\BelongsTo $Members
  * @property \App\Model\Table\RolesTable&\Cake\ORM\Association\BelongsTo $Roles
- *
  * @method \App\Model\Entity\MemberRole newEmptyEntity()
  * @method \App\Model\Entity\MemberRole newEntity(array $data, array $options = [])
  * @method array<\App\Model\Entity\MemberRole> newEntities(array $data, array $options = [])

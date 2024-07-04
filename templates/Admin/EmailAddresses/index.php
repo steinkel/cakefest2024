@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($emailAddresses as $emailAddress): ?>
+                <?php foreach ($emailAddresses as $emailAddress) : ?>
                 <tr>
                     <td><?= $this->Number->format($emailAddress->id) ?></td>
                     <td><?= $emailAddress->hasValue('user') ? $this->Html->link($emailAddress->user->login, ['controller' => 'Users', 'action' => 'view', $emailAddress->user->id]) : '' ?></td>
