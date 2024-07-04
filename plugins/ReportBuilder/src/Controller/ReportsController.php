@@ -106,6 +106,5 @@ class ReportsController extends AppController
 
     public function editAssociations(int $id)
     {
-
     }
 }
