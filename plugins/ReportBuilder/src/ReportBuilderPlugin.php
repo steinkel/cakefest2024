@@ -41,7 +41,7 @@ class ReportBuilderPlugin extends BasePlugin
     {
         $routes->plugin(
             'ReportBuilder',
-            ['path' => '/report-builder'],
+            ['path' => '/rb'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
 
