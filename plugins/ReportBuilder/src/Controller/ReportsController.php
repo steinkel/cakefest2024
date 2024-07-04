@@ -49,7 +49,10 @@ class ReportsController extends AppController
             if ($this->Reports->save($report)) {
                 $this->Flash->success(__('The report has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'action' => 'editAssociations',
+                    $report->id,
+                ]);
             }
             $this->Flash->error(__('The report could not be saved. Please, try again.'));
         }
@@ -71,7 +74,10 @@ class ReportsController extends AppController
             if ($this->Reports->save($report)) {
                 $this->Flash->success(__('The report has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'action' => 'editAssociations',
+                    $report->id,
+                ]);
             }
             $this->Flash->error(__('The report could not be saved. Please, try again.'));
         }
@@ -96,5 +102,10 @@ class ReportsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function editAssociations(int $id)
+    {
+
     }
 }
