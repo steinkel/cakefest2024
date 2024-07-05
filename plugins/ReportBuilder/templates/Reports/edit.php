@@ -23,6 +23,7 @@
                 <legend><?= __('Edit Report') ?></legend>
                 <?php
                     echo $this->Form->control('name');
+                    echo $this->Form->control('starting_table');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

@@ -27,6 +27,7 @@ class ReportsFixture extends TestFixture
             [
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
+                'starting_table' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

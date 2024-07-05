@@ -23,6 +23,10 @@
                     <td><?= h($report->name) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Starting Table') ?></th>
+                    <td><?= h($report->starting_table) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($report->id) ?></td>
                 </tr>

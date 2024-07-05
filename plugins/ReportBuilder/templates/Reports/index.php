@@ -13,14 +13,16 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
+                    <th><?= $this->Paginator->sort('starting_table') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($reports as $report) : ?>
+                <?php foreach ($reports as $report): ?>
                 <tr>
                     <td><?= $this->Number->format($report->id) ?></td>
                     <td><?= h($report->name) ?></td>
+                    <td><?= h($report->starting_table) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>

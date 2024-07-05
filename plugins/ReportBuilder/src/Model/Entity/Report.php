@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $starting_table
  */
 class Report extends Entity
 {
@@ -24,5 +25,6 @@ class Report extends Entity
      */
     protected array $_accessible = [
         'name' => true,
+        'starting_table' => true,
     ];
 }

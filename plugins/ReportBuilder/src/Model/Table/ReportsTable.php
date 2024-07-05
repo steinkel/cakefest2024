@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\ORM\Query\SelectQuery;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -52,6 +54,11 @@ class ReportsTable extends Table
             ->scalar('name')
             ->maxLength('name', 255)
             ->allowEmptyString('name');
+
+        $validator
+            ->scalar('starting_table')
+            ->maxLength('starting_table', 255)
+            ->allowEmptyString('starting_table');
 
         return $validator;
     }
