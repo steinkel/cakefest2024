@@ -104,7 +104,18 @@ class ReportsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function editAssociations(int $id)
+    public function editAssociations(int $id, ?string $association = null)
     {
+        $this->navigateAssociations($id, $association);
+        $this->viewBuilder()->enableAutoLayout();
+    }
+
+    public function navigateAssociations(int $id, ?string $association = null)
+    {
+        $report = $this->Reports->get($id);
+        $startingTable = $report->starting_table;
+        [$currentTable, $tableAssociations] = $this->Reports->goToAssociation($startingTable, $association);
+        $this->set(compact('report', 'currentTable', 'tableAssociations', 'startingTable', 'association'));
+        $this->viewBuilder()->disableAutoLayout();
     }
 }

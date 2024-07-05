@@ -6,6 +6,7 @@ namespace ReportBuilder\Model\Table;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
+use Cake\Utility\Text;
 use Cake\Validation\Validator;
 
 /**
@@ -76,5 +77,16 @@ class ReportsTable extends Table
             ]);
 
         return $validator;
+    }
+
+    public function goToAssociation(string $initialTable, ?string $association = null): array
+    {
+        $currentTable = $this->fetchTable($initialTable);
+        $associationsArray = Text::tokenize($association ?? '', '.');
+        foreach ($associationsArray as $associationItem) {
+            $currentTable = $currentTable->getAssociation($associationItem);
+        }
+
+        return [$currentTable, $currentTable->associations()];
     }
 }
