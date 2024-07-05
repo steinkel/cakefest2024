@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
-use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -84,7 +83,6 @@ class AssociationsTable extends Table
                 },
                 'message' => __('Invalid association'),
             ]);
-
 
         $validator
             ->nonNegativeInteger('report_id')
