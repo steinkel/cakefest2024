@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\ORM\Exception\MissingTableClassException;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -27,6 +29,8 @@ use Cake\Validation\Validator;
  */
 class AssociationsTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -60,7 +64,27 @@ class AssociationsTable extends Table
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->add('name', 'validAssociation', [
+                'rule' => function ($value, $context) {
+                    $reportId = $context['data']['report_id'] ?? null;
+                    if (!$reportId) {
+                        return false;
+                    }
+                    $reportsTable = $this->fetchTable('ReportBuilder.Reports');
+                    $report = $reportsTable->get($reportId);
+
+                    try {
+                        $reportsTable->goToAssociation($report->starting_table, $value);
+                    } catch (\InvalidArgumentException) {
+                        return false;
+                    }
+
+                    return true;
+                },
+                'message' => __('Invalid association'),
+            ]);
+
 
         $validator
             ->nonNegativeInteger('report_id')
