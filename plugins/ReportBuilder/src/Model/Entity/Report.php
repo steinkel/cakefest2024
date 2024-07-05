@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $starting_table
+ * @property string $starting_table
  */
 class Report extends Entity
 {

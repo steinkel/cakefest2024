@@ -15,7 +15,9 @@ class AddInitialTable extends AbstractMigration
     public function change(): void
     {
         $this->table('rb_reports')
-            ->addColumn('starting_table', 'string')
+            ->addColumn('starting_table', 'string', [
+                'null' => false,
+            ])
             ->save();
     }
 }
