@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\ORM\Exception\MissingTableClassException;
+use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -25,6 +27,8 @@ use Cake\Validation\Validator;
  */
 class ReportsTable extends Table
 {
+    use LocatorAwareTrait;
+
     /**
      * Initialize method
      *
@@ -57,7 +61,19 @@ class ReportsTable extends Table
             ->scalar('starting_table')
             ->maxLength('starting_table', 255)
             ->requirePresence('starting_table', 'create')
-            ->notEmptyString('starting_table');
+            ->notEmptyString('starting_table')
+            ->add('starting_table', 'tableExists', [
+                'rule' => function ($value, $context) {
+                    try {
+                        $this->fetchTable($value);
+                    } catch (MissingTableClassException) {
+                        return false;
+                    }
+
+                    return true;
+                },
+                'message' => __('Table not found'),
+            ]);
 
         return $validator;
     }
