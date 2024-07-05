@@ -43,6 +43,10 @@ class ReportsTable extends Table
         $this->setTable('rb_reports');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+        $this->hasMany('Associations')
+            ->setClassName(AssociationsTable::class)
+            ->setForeignKey('report_id')
+            ->setDependent(true);
     }
 
     /**

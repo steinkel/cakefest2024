@@ -61,4 +61,48 @@ class ReportsTableTest extends TestCase
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
+
+    /**
+     * Test goToAssociation method
+     *
+     * @return void
+     * @uses \ReportBuilder\Model\Table\ReportsTable::goToAssociation()
+     */
+    public function testGoToAssociation(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test setTableLocator method
+     *
+     * @return void
+     * @uses \ReportBuilder\Model\Table\ReportsTable::setTableLocator()
+     */
+    public function testSetTableLocator(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test getTableLocator method
+     *
+     * @return void
+     * @uses \ReportBuilder\Model\Table\ReportsTable::getTableLocator()
+     */
+    public function testGetTableLocator(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test fetchTable method
+     *
+     * @return void
+     * @uses \ReportBuilder\Model\Table\ReportsTable::fetchTable()
+     */
+    public function testFetchTable(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
 }

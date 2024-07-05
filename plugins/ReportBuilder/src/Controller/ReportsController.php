@@ -17,7 +17,7 @@ class ReportsController extends AppController
      */
     public function index()
     {
-        $query = $this->Reports->find();
+        $query = $this->Reports->find()->contain('Associations');
         $reports = $this->paginate($query);
 
         $this->set(compact('reports'));
@@ -117,5 +117,25 @@ class ReportsController extends AppController
         [$currentTable, $tableAssociations] = $this->Reports->goToAssociation($startingTable, $association);
         $this->set(compact('report', 'currentTable', 'tableAssociations', 'startingTable', 'association'));
         $this->viewBuilder()->disableAutoLayout();
+    }
+
+    public function addAssociation(int $id, ?string $association = null)
+    {
+        $result = 'OK';
+        $message = __('Association saved');
+        $association = $this->fetchTable('ReportBuilder.Associations')
+            ->findOrCreate([
+                'report_id' => $id,
+                'name' => $association,
+            ]);
+        if (!$association) {
+            $result = 'FAILED';
+            $message = __('Unable to save association');
+        }
+
+        $this->set(compact('result', 'message'));
+        $this->viewBuilder()->setOption('serialize', ['result', 'message']);
+        // forced to return json
+        $this->viewBuilder()->setClassName('Json');
     }
 }

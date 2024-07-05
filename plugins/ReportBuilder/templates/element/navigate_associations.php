@@ -11,8 +11,19 @@
             ]),
             'class' => 'navigate',
         ]);
+        $addLink = $this->Html->link(__('[+ add]'), '#', [
+            'data-url' => $this->Url->build([
+                'plugin' => 'ReportBuilder',
+                'controller' => 'Reports',
+                'action' => 'addAssociation',
+                $report->id,
+                $association ? h($association) . '.' . h($nextAlias) : h($nextAlias),
+            ]),
+            'data-csrf' => $this->request->getAttribute('csrfToken'),
+            'class' => 'add-association',
+        ]);
 
-        echo $this->Html->tag('dd', $nextAlias . ' ' . $navigateLink);
+        echo $this->Html->tag('dd', $nextAlias . ' ' . $addLink . ' ' . $navigateLink);
     }
     ?>
 </dl>

@@ -8,4 +8,17 @@ document.addEventListener('click', async function (event) {
         insertElement.innerHTML = body;
         element.parentNode.insertBefore(insertElement, element.nextSibling);
     }
+    if (event.target.classList.contains('add-association')) {
+        const element = event.target;
+        const response = await fetch(element.dataset.url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-CSRF-Token': element.dataset.csrf,
+            },
+        });
+        const body = await response.json();
+        alert(body.result + ' ' + body.message);
+    }
 });
