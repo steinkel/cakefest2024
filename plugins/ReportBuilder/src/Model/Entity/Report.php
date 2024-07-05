@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ReportBuilder\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\Locator\LocatorAwareTrait;
 
 /**
  * Report Entity
@@ -14,6 +15,7 @@ use Cake\ORM\Entity;
  */
 class Report extends Entity
 {
+    use LocatorAwareTrait;
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
@@ -27,4 +29,19 @@ class Report extends Entity
         'name' => true,
         'starting_table' => true,
     ];
+
+    protected function _getAllColumns(): array
+    {
+        $allColumns = [
+            $this->starting_table => $this->fetchTable($this->starting_table)->getSchema()->columns(),
+        ];
+
+        $reportsTable = $this->fetchTable('ReportBuilder.Reports');
+        foreach ($this->associations ?? [] as $association) {
+            [$associationTable,]  = $reportsTable->goToAssociation($this->starting_table, $association->name);
+            $allColumns[$association->name] = $associationTable->getSchema()->columns();
+        }
+
+        return $allColumns;
+    }
 }
