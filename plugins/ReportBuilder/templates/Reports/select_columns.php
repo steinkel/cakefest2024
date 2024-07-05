@@ -1,8 +1,7 @@
 <dl>
 <?php
 echo $this->Form->create();
-foreach ($report->all_columns as $associationName => $columns)
-{
+foreach ($report->all_columns as $associationName => $columns) {
     echo $this->Html->tag('dd', h($associationName));
     foreach ($columns as $column) {
         echo '<dl>';

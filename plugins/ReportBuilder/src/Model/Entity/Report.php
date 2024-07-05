@@ -16,6 +16,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 class Report extends Entity
 {
     use LocatorAwareTrait;
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
