@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
-use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -12,7 +11,6 @@ use Cake\Validation\Validator;
  * Associations Model
  *
  * @property \ReportBuilder\Model\Table\RbReportsTable&\Cake\ORM\Association\BelongsTo $RbReports
- *
  * @method \ReportBuilder\Model\Entity\Association newEmptyEntity()
  * @method \ReportBuilder\Model\Entity\Association newEntity(array $data, array $options = [])
  * @method array<\ReportBuilder\Model\Entity\Association> newEntities(array $data, array $options = [])
