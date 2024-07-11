@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\Database\Schema\TableSchemaInterface;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
@@ -84,6 +85,12 @@ class ReportsTable extends Table
         return $validator;
     }
 
+    public function getSchema(): TableSchemaInterface
+    {
+        return parent::getSchema()
+            ->setColumnType('starting_table_columns', 'commaSeparated');
+    }
+
     public function goToAssociation(string $initialTable, ?string $association = null): array
     {
         $currentTable = $this->fetchTable($initialTable);
@@ -105,7 +112,8 @@ class ReportsTable extends Table
         foreach ($data as $associationName => $columns) {
             $association = $report->getAssociationByName(str_replace(':', '.', $associationName));
             if ($association) {
-                $association->columns = $this->checkedColumns($columns);
+                $association->table_columns = $this->checkedColumns($columns);
+                $report->setDirty('associations');
             }
         }
 

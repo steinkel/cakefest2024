@@ -29,6 +29,7 @@ class Report extends Entity
     protected array $_accessible = [
         'name' => true,
         'starting_table' => true,
+        'starting_table_colums' => true,
     ];
 
     protected function _getAllColumns(): array

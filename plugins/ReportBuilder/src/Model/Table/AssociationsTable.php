@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\Database\Schema\TableSchemaInterface;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -103,5 +104,11 @@ class AssociationsTable extends Table
         $rules->add($rules->existsIn(['report_id'], 'Reports'), ['errorField' => 'report_id']);
 
         return $rules;
+    }
+
+    public function getSchema(): TableSchemaInterface
+    {
+        return parent::getSchema()
+            ->setColumnType('table_columns', 'commaSeparated');
     }
 }
