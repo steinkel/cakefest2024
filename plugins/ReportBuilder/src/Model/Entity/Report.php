@@ -45,4 +45,15 @@ class Report extends Entity
 
         return $allColumns;
     }
+
+    public function getAssociationByName(string $associationName): Association|null
+    {
+        foreach ($this->associations as $association) {
+            if ($association->name === $associationName) {
+                return $association;
+            }
+        }
+
+        return null;
+    }
 }

@@ -8,6 +8,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
+use ReportBuilder\Model\Entity\Report;
 
 /**
  * Reports Model
@@ -92,5 +93,33 @@ class ReportsTable extends Table
         }
 
         return [$currentTable, $currentTable->associations()];
+    }
+
+    public function saveAssociationColumns(Report $report, array $data)
+    {
+        // columns for the starting table
+        $columnsForStartingTable = $data[$report->starting_table] ?? [];
+        $report->starting_table_columns = $this->checkedColumns($columnsForStartingTable);
+        unset($data[$report->starting_table]);
+
+        foreach ($data as $associationName => $columns) {
+            $association = $report->getAssociationByName(str_replace(':', '.', $associationName));
+            if ($association) {
+                $association->columns = $this->checkedColumns($columns);
+            }
+        }
+
+        return $this->save($report);
+    }
+
+    protected function checkedColumns(array $columns): array
+    {
+        return array_keys(
+            collection($columns)
+                ->filter(function ($value) {
+                    return $value === '1';
+                })
+                ->toArray()
+        );
     }
 }

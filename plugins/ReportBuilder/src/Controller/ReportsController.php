@@ -144,10 +144,15 @@ class ReportsController extends AppController
         $report = $this->Reports->get($id, contain: ['Associations']);
         $this->set(compact('report'));
         if ($this->request->is('post')) {
-            dd($this->request->getData());
-            // note we are using names and not ids, we'll need to match the association by name to save the columns
-            // another option could be exposing the id to the checkbox so we can capture it here and json_encode the columns we want
-            // another issue is to populate the column checkboxes values, we could do it with a in_array
+            if ($this->Reports->saveAssociationColumns($report, $this->request->getData())) {
+                $this->Flash->success(__('Columns saved'));
+                return $this->redirect([
+                    'action' => 'editFilters',
+                    $report->id,
+                ]);
+            }
+
+            $this->Flash->error(__('Unable to save association columns'));
         }
     }
 }
