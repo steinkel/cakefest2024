@@ -29,5 +29,6 @@ class Association extends Entity
         'name' => true,
         'report_id' => true,
         'rb_report' => true,
+        'table_columns' => true,
     ];
 }

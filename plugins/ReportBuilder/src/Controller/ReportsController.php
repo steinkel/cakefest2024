@@ -138,4 +138,23 @@ class ReportsController extends AppController
         // forced to return json
         $this->viewBuilder()->setClassName('Json');
     }
+
+    public function selectColumns(int $id)
+    {
+        $report = $this->Reports->get($id, contain: ['Associations']);
+        $this->set(compact('report'));
+        if ($this->request->is('post')) {
+            if ($this->Reports->saveAssociationColumns($report, $this->request->getData())) {
+                $this->Flash->success(__('Columns saved'));
+                dd($report);
+
+                return $this->redirect([
+                    'action' => 'editFilters',
+                    $report->id,
+                ]);
+            }
+
+            $this->Flash->error(__('Unable to save association columns'));
+        }
+    }
 }

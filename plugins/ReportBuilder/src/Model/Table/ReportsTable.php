@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Table;
 
+use Cake\Database\Schema\TableSchemaInterface;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
+use ReportBuilder\Model\Entity\Report;
 
 /**
  * Reports Model
@@ -83,6 +85,12 @@ class ReportsTable extends Table
         return $validator;
     }
 
+    public function getSchema(): TableSchemaInterface
+    {
+        return parent::getSchema()
+            ->setColumnType('starting_table_columns', 'commaSeparated');
+    }
+
     public function goToAssociation(string $initialTable, ?string $association = null): array
     {
         $currentTable = $this->fetchTable($initialTable);
@@ -92,5 +100,34 @@ class ReportsTable extends Table
         }
 
         return [$currentTable, $currentTable->associations()];
+    }
+
+    public function saveAssociationColumns(Report $report, array $data)
+    {
+        // columns for the starting table
+        $columnsForStartingTable = $data[$report->starting_table] ?? [];
+        $report->starting_table_columns = $this->checkedColumns($columnsForStartingTable);
+        unset($data[$report->starting_table]);
+
+        foreach ($data as $associationName => $columns) {
+            $association = $report->getAssociationByName(str_replace(':', '.', $associationName));
+            if ($association) {
+                $association->table_columns = $this->checkedColumns($columns);
+                $report->setDirty('associations');
+            }
+        }
+
+        return $this->save($report);
+    }
+
+    protected function checkedColumns(array $columns): array
+    {
+        return array_keys(
+            collection($columns)
+                ->filter(function ($value) {
+                    return $value === '1';
+                })
+                ->toArray()
+        );
     }
 }
