@@ -146,6 +146,7 @@ class ReportsController extends AppController
         if ($this->request->is('post')) {
             if ($this->Reports->saveAssociationColumns($report, $this->request->getData())) {
                 $this->Flash->success(__('Columns saved'));
+
                 return $this->redirect([
                     'action' => 'editFilters',
                     $report->id,
