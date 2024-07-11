@@ -147,6 +147,7 @@ class ReportsController extends AppController
             if ($this->Reports->saveAssociationColumns($report, $this->request->getData())) {
                 $this->Flash->success(__('Columns saved'));
                 dd($report);
+
                 return $this->redirect([
                     'action' => 'editFilters',
                     $report->id,
