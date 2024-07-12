@@ -24,6 +24,7 @@
                     <td><?= h($report->name) ?></td>
                     <td><?= h($report->starting_table) ?></td>
                     <td class="actions">
+                        <?= $this->Html->link(__('Run'), ['action' => 'run', $report->id]) ?>
                         <?= $this->Html->link(__('View'), ['action' => 'view', $report->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $report->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $report->id], ['confirm' => __('Are you sure you want to delete # {0}?', $report->id)]) ?>

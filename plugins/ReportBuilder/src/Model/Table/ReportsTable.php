@@ -6,9 +6,11 @@ namespace ReportBuilder\Model\Table;
 use Cake\Database\Schema\TableSchemaInterface;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
+use ReportBuilder\Model\Entity\Association;
 use ReportBuilder\Model\Entity\Report;
 
 /**
@@ -129,5 +131,32 @@ class ReportsTable extends Table
                 })
                 ->toArray()
         );
+    }
+
+    public function run(Report $report): SelectQuery
+    {
+        $startingTable = $this->fetchTable($report->starting_table);
+        $runQuery = $startingTable->find();
+
+        return $this->addContain($report, $runQuery);
+    }
+
+    public function prepare(SelectQuery $query): array
+    {
+        return $query
+            ->disableHydration()
+            ->toArray();
+    }
+
+    protected function addContain(Report $report, SelectQuery $runQuery): SelectQuery
+    {
+        foreach ($report->associations as $association) {
+            /**
+             * @var Association $association
+             */
+            $runQuery->contain($association->name);
+        }
+
+        return $runQuery;
     }
 }

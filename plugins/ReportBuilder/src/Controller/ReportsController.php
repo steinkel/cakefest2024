@@ -157,4 +157,13 @@ class ReportsController extends AppController
             $this->Flash->error(__('Unable to save association columns'));
         }
     }
+
+    public function run(int $id)
+    {
+        $report = $this->Reports->get($id, contain: ['Associations']);
+        $reportRunQuery = $this->Reports->run($report);
+        $reportRun = $this->Reports->prepare($reportRunQuery);
+
+        $this->set(compact('reportRun', 'report'));
+    }
 }
