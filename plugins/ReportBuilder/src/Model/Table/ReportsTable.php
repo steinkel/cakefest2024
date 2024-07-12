@@ -10,7 +10,6 @@ use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
-use ReportBuilder\Model\Entity\Association;
 use ReportBuilder\Model\Entity\Report;
 
 /**
@@ -152,7 +151,7 @@ class ReportsTable extends Table
     {
         foreach ($report->associations as $association) {
             /**
-             * @var Association $association
+             * @var \ReportBuilder\Model\Entity\Association $association
              */
             $runQuery->contain($association->name);
         }

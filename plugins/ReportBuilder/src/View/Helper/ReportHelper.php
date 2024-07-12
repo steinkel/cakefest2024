@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ReportBuilder\View\Helper;
 
-use Cake\Log\Log;
 use Cake\View\Helper;
 
 /**
@@ -39,14 +38,12 @@ class ReportHelper extends Helper
 
         $hideTr = [
             'style' => 'display: none',
-            'class' => 'collapsible-content'
+            'class' => 'collapsible-content',
         ];
         if ($collapsed) {
-            return
-                $this->Html->tableCells([$rowData], $hideTr, $hideTr) . $nestedRowHtml;
+            return $this->Html->tableCells([$rowData], $hideTr, $hideTr) . $nestedRowHtml;
         } else {
-            return
-                $this->Html->tableCells([$rowData], ['class' => 'collapsible-header'], ['class' => 'collapsible-header']) . $nestedRowHtml;
+            return $this->Html->tableCells([$rowData], ['class' => 'collapsible-header'], ['class' => 'collapsible-header']) . $nestedRowHtml;
         }
     }
 }
