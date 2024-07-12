@@ -43,6 +43,7 @@ class ReportHelper extends Helper
 
         foreach ($rowData as $rowValue) {
             $htmlString .= $this->Html->tag('div', (string)$rowValue, [
+                'escape' => true,
                 'class' => 'report-value',
             ]);
         }
