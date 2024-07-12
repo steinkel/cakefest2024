@@ -6,6 +6,10 @@
         cursor: pointer;
         background-color: #f2f2f2;
     }
+    .report-value {
+        display: table-cell;
+        padding: 2px;
+    }
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', () => {

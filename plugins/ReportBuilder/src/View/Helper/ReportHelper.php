@@ -36,14 +36,17 @@ class ReportHelper extends Helper
             }
         }
 
-        $hideTr = [
-            'style' => 'display: none',
-            'class' => 'collapsible-content',
-        ];
+        $htmlString = '<div class="collapsible-header">';
         if ($collapsed) {
-            return $this->Html->tableCells([$rowData], $hideTr, $hideTr) . $nestedRowHtml;
-        } else {
-            return $this->Html->tableCells([$rowData], ['class' => 'collapsible-header'], ['class' => 'collapsible-header']) . $nestedRowHtml;
+            $htmlString = '<div class="collapsible-content" style="display: none">';
         }
+
+        foreach ($rowData as $rowValue) {
+            $htmlString .= $this->Html->tag('div', (string)$rowValue, [
+                'class' => 'report-value',
+            ]);
+        }
+
+        return $htmlString .= '</div>' . $nestedRowHtml;
     }
 }
