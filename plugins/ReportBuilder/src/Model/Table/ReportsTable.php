@@ -136,8 +136,9 @@ class ReportsTable extends Table
     {
         $startingTable = $this->fetchTable($report->starting_table);
         $runQuery = $startingTable->find();
+        $runQuery = $this->addContain($report, $runQuery);
 
-        return $this->addContain($report, $runQuery);
+        return $this->addSelect($report, $runQuery);
     }
 
     public function prepare(SelectQuery $query): array
@@ -153,8 +154,25 @@ class ReportsTable extends Table
             /**
              * @var \ReportBuilder\Model\Entity\Association $association
              */
-            $runQuery->contain($association->name);
+            $runQuery->contain([
+                $association->name => [
+                    'fields' => $association->table_columns,
+                ]
+            ]);
         }
+
+        return $runQuery;
+    }
+
+    protected function addSelect(Report $report, SelectQuery $runQuery): SelectQuery
+    {
+        if (!$report->starting_table_columns) {
+            return $runQuery;
+        }
+        $startingTable = $this->fetchTable($report->starting_table);
+        $runQuery->select(collection($report->starting_table_columns)
+            ->map(fn($column) => $startingTable->aliasField($column))
+            ->toArray());
 
         return $runQuery;
     }
