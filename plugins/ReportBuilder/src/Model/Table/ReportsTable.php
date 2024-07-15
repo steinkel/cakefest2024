@@ -137,6 +137,7 @@ class ReportsTable extends Table
         $startingTable = $this->fetchTable($report->starting_table);
         $runQuery = $startingTable->find();
         $runQuery = $this->addContain($report, $runQuery);
+        $runQuery = $this->applyFilters($report, $runQuery);
 
         return $this->addSelect($report, $runQuery);
     }
@@ -175,6 +176,36 @@ class ReportsTable extends Table
         $runQuery->select(collection($report->starting_table_columns)
             ->map(fn($column) => $startingTable->aliasField($column))
             ->toArray());
+
+        return $runQuery;
+    }
+
+    protected function applyFilters(Report $report, SelectQuery $runQuery): SelectQuery
+    {
+        if (!$report->filters) {
+            return $runQuery;
+        }
+
+        foreach ($report->filters as $column => $filter) {
+            $value = $filter['value'] ?? null;
+            $condition = $filter['condition'] ?? null;
+            if (!$value || !$condition) {
+                continue;
+            }
+            switch ($condition) {
+                case '>=':
+                    $runQuery->where($runQuery->newExpr()->gte($column, $value));
+                    break;
+                case '<=':
+                    $runQuery->where($runQuery->newExpr()->lte($column, $value));
+                    break;
+                case '=':
+                    $runQuery->where($runQuery->newExpr()->eq($column, $value));
+                    break;
+                default:
+                    throw new \OutOfBoundsException('Condition not found');
+            }
+        }
 
         return $runQuery;
     }
