@@ -31,8 +31,16 @@ class ReportHelper extends Helper
 
         $nestedRowHtml = '';
         foreach ($rowDataNested as $name => $nestedRows) {
-            foreach ($nestedRows as $nestedRow) {
-                $nestedRowHtml .= $this->row($nestedRow, true);
+            $belongsToData = [];
+            foreach ($nestedRows as $nestedName => $nestedRow) {
+                if (is_array($nestedRow)) {
+                    $nestedRowHtml .= $this->row($nestedRow, true);
+                } else {
+                    $belongsToData[$nestedName] = $nestedRow;
+                }
+            }
+            if ($belongsToData) {
+                $nestedRowHtml .= $this->row($belongsToData, true);
             }
         }
 
