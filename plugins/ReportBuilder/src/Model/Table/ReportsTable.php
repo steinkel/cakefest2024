@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace ReportBuilder\Model\Table;
 
 use Cake\Database\Schema\TableSchemaInterface;
+use Cake\I18n\Date;
+use Cake\I18n\Time;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
 use Cake\ORM\Query\SelectQuery;
@@ -189,7 +191,7 @@ class ReportsTable extends Table
         foreach ($report->filters as $column => $filter) {
             $value = $filter['value'] ?? null;
             $condition = $filter['condition'] ?? null;
-            if (!$value || !$condition) {
+            if (!$condition) {
                 continue;
             }
             switch ($condition) {
@@ -201,6 +203,27 @@ class ReportsTable extends Table
                     break;
                 case '=':
                     $runQuery->where($runQuery->newExpr()->eq($column, $value));
+                    break;
+                case 'this_month':
+                    $runQuery->where($runQuery->newExpr()->between(
+                        $column,
+                        Date::parse('first day of this month'),
+                        Date::parse('last day of this month'))
+                    );
+                    break;
+                case 'last_month':
+                    $runQuery->where($runQuery->newExpr()->between(
+                        $column,
+                        Date::parse('first day of last month'),
+                        Date::parse('last day of last month'))
+                    );
+                    break;
+                case 'this_week':
+                    $runQuery->where($runQuery->newExpr()->between(
+                        $column,
+                        Date::parse('this week'),
+                        Date::parse('next week')->subDays(1))
+                    );
                     break;
                 default:
                     throw new \OutOfBoundsException('Condition not found');
