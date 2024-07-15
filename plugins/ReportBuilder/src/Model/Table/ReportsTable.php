@@ -157,7 +157,7 @@ class ReportsTable extends Table
             $runQuery->contain([
                 $association->name => [
                     'fields' => $association->table_columns,
-                ]
+                ],
             ]);
         }
 
