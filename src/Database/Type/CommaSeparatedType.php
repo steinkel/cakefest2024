@@ -28,6 +28,9 @@ class CommaSeparatedType extends BaseType
 
     public function toDatabase(mixed $value, Driver $driver): mixed
     {
+        if (!$value) {
+            return null;
+        }
         return implode(',', $value);
     }
 
