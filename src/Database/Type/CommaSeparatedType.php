@@ -31,6 +31,7 @@ class CommaSeparatedType extends BaseType
         if (!$value) {
             return null;
         }
+
         return implode(',', $value);
     }
 
