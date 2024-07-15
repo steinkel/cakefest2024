@@ -154,11 +154,13 @@ class ReportsTable extends Table
             /**
              * @var \ReportBuilder\Model\Entity\Association $association
              */
-            $runQuery->contain([
-                $association->name => [
-                    'fields' => $association->table_columns,
-                ],
-            ]);
+            if ($association->table_columns ?? null) {
+                $runQuery->contain([
+                    $association->name => [
+                        'fields' => $association->table_columns,
+                    ],
+                ]);
+            }
         }
 
         return $runQuery;
