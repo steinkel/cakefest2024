@@ -165,4 +165,26 @@ class ReportsController extends AppController
 
         $this->set(compact('reportRun', 'report'));
     }
+
+    public function editFilters(int $id)
+    {
+        $report = $this->Reports->get($id);
+        $typeMap = $this->fetchTable($report->starting_table)->getSchema()->typeMap();
+        if ($this->request->is('post')) {
+            $report->filters = collection($this->request->getData())
+                ->filter(fn($value, $key) => in_array($key, array_keys($typeMap)))
+                ->toArray();
+            if (!$this->Reports->save($report)) {
+                $this->Flash->error(__('Unable to save the filters'));
+            }
+
+            return $this->redirect([
+                'action' => 'index',
+            ]);
+        }
+        $report = $this->Reports->get($id);
+        $typeMap = $this->fetchTable($report->starting_table)->getSchema()->typeMap();
+
+        $this->set(compact('typeMap'));
+    }
 }

@@ -13,6 +13,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  * @property string|null $name
  * @property string $starting_table
  * @property array $starting_table_colums
+ * @property array $filters
  */
 class Report extends Entity
 {
@@ -31,6 +32,7 @@ class Report extends Entity
         'name' => true,
         'starting_table' => true,
         'starting_table_colums' => true,
+        'filters' => true,
     ];
 
     protected function _getAllColumns(): array
