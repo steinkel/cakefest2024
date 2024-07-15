@@ -12,6 +12,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
  * @property int $id
  * @property string|null $name
  * @property string $starting_table
+ * @property array $starting_table_colums
  */
 class Report extends Entity
 {
