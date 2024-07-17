@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Controller;
 
+use Cake\Datasource\Paging\SimplePaginator;
+
 /**
  * Reports Controller
  *
@@ -160,8 +162,11 @@ class ReportsController extends AppController
     public function run(int $id)
     {
         $report = $this->Reports->get($id, contain: ['Associations']);
-        $reportRunQuery = $this->Reports->run($report);
-        $reportRun = $this->Reports->prepare($reportRunQuery);
+        $paginator = new SimplePaginator();
+        $reportRun = $paginator->paginate(
+            $this->Reports->run($report),
+            $this->request->getQueryParams()
+        );
 
         $this->set(compact('reportRun', 'report'));
     }

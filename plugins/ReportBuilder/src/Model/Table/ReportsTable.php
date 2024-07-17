@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ReportBuilder\Model\Table;
 
 use Cake\Database\Schema\TableSchemaInterface;
+use Cake\Datasource\Paging\SimplePaginator;
 use Cake\I18n\Date;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
@@ -140,14 +141,9 @@ class ReportsTable extends Table
         $runQuery = $this->addContain($report, $runQuery);
         $runQuery = $this->applyFilters($report, $runQuery);
 
-        return $this->addSelect($report, $runQuery);
-    }
-
-    public function prepare(SelectQuery $query): array
-    {
-        return $query
-            ->disableHydration()
-            ->toArray();
+        return $this
+            ->addSelect($report, $runQuery)
+            ->disableHydration();
     }
 
     protected function addContain(Report $report, SelectQuery $runQuery): SelectQuery
