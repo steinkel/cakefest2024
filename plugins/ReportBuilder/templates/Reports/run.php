@@ -2,10 +2,12 @@
     .collapsible-content {
         display: none;
     }
+
     .collapsible-header {
         cursor: pointer;
         background-color: #f2f2f2;
     }
+
     .report-value {
         display: table-cell;
         padding: 2px;
@@ -27,9 +29,7 @@
 </script>
 <?php
 echo $this->Html->tag('h1', h($report->name));
-echo '<table>';
 foreach ($reportRun as $row) {
     echo $this->Report->row($row);
 }
-echo '</table>';
-?>
+echo $this->element('simple_pagination');

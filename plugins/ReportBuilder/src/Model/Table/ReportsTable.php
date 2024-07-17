@@ -140,14 +140,9 @@ class ReportsTable extends Table
         $runQuery = $this->addContain($report, $runQuery);
         $runQuery = $this->applyFilters($report, $runQuery);
 
-        return $this->addSelect($report, $runQuery);
-    }
-
-    public function prepare(SelectQuery $query): array
-    {
-        return $query
-            ->disableHydration()
-            ->toArray();
+        return $this
+            ->addSelect($report, $runQuery)
+            ->disableHydration();
     }
 
     protected function addContain(Report $report, SelectQuery $runQuery): SelectQuery
