@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ReportBuilder\Model\Table;
 
 use Cake\Database\Schema\TableSchemaInterface;
-use Cake\Datasource\Paging\SimplePaginator;
 use Cake\I18n\Date;
 use Cake\ORM\Exception\MissingTableClassException;
 use Cake\ORM\Locator\LocatorAwareTrait;
