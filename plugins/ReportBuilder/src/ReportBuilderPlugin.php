@@ -9,7 +9,6 @@ use Cake\Core\ContainerInterface;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
-use ReportBuilder\Middleware\CorsMiddleware;
 
 /**
  * Plugin for ReportBuilder
