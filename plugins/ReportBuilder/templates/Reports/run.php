@@ -11,6 +11,7 @@
     .report-value {
         display: table-cell;
         padding: 2px;
+        width: 200px;
     }
 </style>
 <script>
@@ -29,6 +30,9 @@
 </script>
 <?php
 echo $this->Html->tag('h1', h($report->name));
+
+echo $this->Report->headers($reportRun->items()->first() ?? []);
+
 foreach ($reportRun as $row) {
     echo $this->Report->row($row);
 }

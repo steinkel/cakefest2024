@@ -58,4 +58,17 @@ class ReportHelper extends Helper
 
         return $htmlString .= '</div>' . $nestedRowHtml;
     }
+
+    public function headers(array $row): string
+    {
+        $headers = '';
+        foreach (array_keys($row) as $name) {
+            $headers .= $this->Html->tag('div', $name, [
+                'escape' => true,
+                'class' => 'report-value',
+            ]);
+        }
+
+        return $headers;
+    }
 }
