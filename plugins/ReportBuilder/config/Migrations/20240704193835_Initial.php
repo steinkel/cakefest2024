@@ -17,6 +17,8 @@ class Initial extends AbstractMigration
     {
         $this->table('rb_reports')
             ->addColumn('name', 'string')
+            ->addColumn('created', 'datetime')
+            ->addColumn('modified', 'datetime')
             ->save();
     }
 }
