@@ -14,6 +14,7 @@ use Cake\ORM\Locator\LocatorAwareTrait;
 class ApiController extends AppController
 {
     use LocatorAwareTrait;
+
     /**
      * Index method
      *
