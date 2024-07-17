@@ -44,12 +44,20 @@ class ReportBuilderPlugin extends BasePlugin
             ['path' => '/rb'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
-                $builder->connect('/api/{id}', [
-                    'controller' => 'Api',
-                    'action' => 'index',
-                ], [
-                    'pass' => ['id'],
-                ]);
+                $builder
+                    ->connect('/api/{slug}', [
+                        'controller' => 'Api',
+                        'action' => 'index',
+                    ])
+                    ->setPass([
+                        'slug',
+                    ])
+                    ->setPatterns([
+                        'slug' => '[a-z0-9]+(?:-[a-z0-9]+)*',
+                    ])
+                    ->setMethods([
+                        'get'
+                    ]);
 
                 $builder->fallbacks();
             }

@@ -20,10 +20,13 @@ class ApiController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(int $id)
+    public function index(string $slug)
     {
         $reportsTable = $this->fetchTable('ReportBuilder.Reports');
-        $report = $reportsTable->get($id, contain: ['Associations']);
+        $report = $reportsTable
+            ->findBySlug($slug)
+            ->contain('Associations')
+            ->firstOrFail();
         $paginator = new SimplePaginator();
         $reportRun = $paginator->paginate(
             $reportsTable->run($report),

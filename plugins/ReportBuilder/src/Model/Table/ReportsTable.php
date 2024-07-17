@@ -51,6 +51,7 @@ class ReportsTable extends Table
             ->setClassName(AssociationsTable::class)
             ->setForeignKey('report_id')
             ->setDependent(true);
+        $this->addBehavior('Muffin/Slug.Slug');
     }
 
     /**
