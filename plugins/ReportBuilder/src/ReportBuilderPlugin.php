@@ -44,6 +44,12 @@ class ReportBuilderPlugin extends BasePlugin
             ['path' => '/rb'],
             function (RouteBuilder $builder) {
                 // Add custom routes here
+                $builder->connect('/api/{id}', [
+                    'controller' => 'Api',
+                    'action' => 'index',
+                ], [
+                    'pass' => ['id'],
+                ]);
 
                 $builder->fallbacks();
             }
