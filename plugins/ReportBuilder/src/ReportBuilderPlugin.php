@@ -56,7 +56,7 @@ class ReportBuilderPlugin extends BasePlugin
                         'slug' => '[a-z0-9]+(?:-[a-z0-9]+)*',
                     ])
                     ->setMethods([
-                        'get'
+                        'get',
                     ]);
 
                 $builder->fallbacks();
