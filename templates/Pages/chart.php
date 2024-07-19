@@ -8,7 +8,9 @@ $this->disableAutoLayout();
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<canvas id="hoursChart" width="400" height="200"></canvas>
+<div style="width: 600px; height: 600px;">
+    <canvas id="hoursChart"></canvas>
+</div>
 <script>
     // Fetch data from the endpoint
     fetch('https://cf24.ddev.site/rb/api/for-api') // Replace with your actual endpoint
