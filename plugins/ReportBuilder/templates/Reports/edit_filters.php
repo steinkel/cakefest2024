@@ -2,8 +2,10 @@
 /**
  * @var \App\View\AppView $this
  */
-$this->Form->addWidget('conditionInteger',
-    \ReportBuilder\View\Widget\ConditionIntegerWidget::class);
+$this->Form->addWidget(
+    'conditionInteger',
+    \ReportBuilder\View\Widget\ConditionIntegerWidget::class
+);
 $this->Form->addWidget('conditionDate', \ReportBuilder\View\Widget\ConditionDateWidget::class);
 $this->Form->addWidget('autocompleteAssociation', ['ReportBuilder.AutocompleteAssociation', '_view']);
 echo $this->Form->create();
