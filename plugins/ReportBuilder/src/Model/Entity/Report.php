@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ReportBuilder\Model\Entity;
 
+use Cake\ORM\Association\BelongsTo;
 use Cake\ORM\Entity;
 use Cake\ORM\Locator\LocatorAwareTrait;
 
@@ -43,7 +44,7 @@ class Report extends Entity
 
         $reportsTable = $this->fetchTable('ReportBuilder.Reports');
         foreach ($this->associations ?? [] as $association) {
-            [$associationTable,]  = $reportsTable->goToAssociation($this->starting_table, $association->name);
+            [$associationTable,] = $reportsTable->goToAssociation($this->starting_table, $association->name);
             $allColumns[$association->name] = $associationTable->getSchema()->columns();
         }
 
@@ -55,6 +56,18 @@ class Report extends Entity
         foreach ($this->associations as $association) {
             if ($association->name === $associationName) {
                 return $association;
+            }
+        }
+
+        return null;
+    }
+
+    public function columnForeignKeyAssociationName(string $column): string|null
+    {
+        $startingTable = $this->fetchTable($this->starting_table);
+        foreach ($startingTable->associations() as $name => $association) {
+            if ($association instanceof BelongsTo && $association->getForeignKey() === $column) {
+                return $association->getName();
             }
         }
 

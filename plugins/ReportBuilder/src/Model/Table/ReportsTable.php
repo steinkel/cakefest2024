@@ -199,6 +199,11 @@ class ReportsTable extends Table
                 case '=':
                     $runQuery->where($runQuery->newExpr()->eq($column, $value));
                     break;
+                case 'autocomplete':
+                    if ($value) {
+                        $runQuery->where($runQuery->newExpr()->eq($column, $value));
+                    }
+                    break;
                 case 'this_month':
                     $runQuery->where($runQuery->newExpr()->between(
                         $column,

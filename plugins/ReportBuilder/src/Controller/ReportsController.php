@@ -187,9 +187,41 @@ class ReportsController extends AppController
                 'action' => 'index',
             ]);
         }
-        $report = $this->Reports->get($id);
         $typeMap = $this->fetchTable($report->starting_table)->getSchema()->typeMap();
 
-        $this->set(compact('typeMap'));
+        $this->set(compact('typeMap', 'report'));
+    }
+
+    public function autocomplete(int $id)
+    {
+        $this->request->allowMethod('get');
+        $associationName = $this->request->getQuery('association');
+        $term = $this->request->getQuery('term');
+        $report = $this->Reports->get($id);
+
+        if ($associationName && $term) {
+            $startingTable = $this->fetchTable($report->starting_table);
+            if ($association = $startingTable->getAssociation($associationName)) {
+                $results = $association->find('list')
+                    ->where([
+                        $association->aliasField($association->getDisplayField()) . ' LIKE' => $term . '%',
+                    ])
+                    ->formatResults(function ($results) use ($association) {
+                        return $results->map(function ($label, $value) use ($association) {
+                            $row['label'] = $label;
+                            $row['value'] = $value;
+
+                            return $row;
+                        });
+                    })
+                    ->disableHydration()
+                    ->limit(20)
+                    ->toArray();
+            }
+        }
+
+        $this->set('results', $results);
+        $this->viewBuilder()->setOption('serialize', ['results']);
+        $this->viewBuilder()->setClassName('Json');
     }
 }
