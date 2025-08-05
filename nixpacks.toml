@@ -1,0 +1,23 @@
+providers = ["php", "composer"]
+
+[phases.setup]
+nixPkgs = [
+  "nginx",
+  "php82",
+  "php82Extensions.fpm",
+  "php82Extensions.pdo",
+  "php82Extensions.pdo_mysql",
+  "php82Extensions.mbstring",
+  "php82Extensions.intl",
+  "php82Extensions.simplexml",
+  "php82Extensions.dom",
+  "composer"
+]
+
+[phases.install]
+cmds = [
+  "composer install --no-interaction --no-dev --optimize-autoloader"
+]
+
+[start]
+cmd = "php-fpm & nginx -c $PWD/.nixpacks/nginx.conf -g 'daemon off;'"
