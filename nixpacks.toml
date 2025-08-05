@@ -4,7 +4,7 @@ providers = ["php"]
 nixPkgs = [
   "nginx",
   "php82",
-  "php-fpm",
+  "php82Packages.fpm",
   "php82Extensions.pdo",
   "php82Extensions.pdo_mysql",
   "php82Extensions.mbstring",
