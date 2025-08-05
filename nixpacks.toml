@@ -1,4 +1,4 @@
-providers = ["php", "composer"]
+providers = ["php"]
 
 [phases.setup]
 nixPkgs = [
