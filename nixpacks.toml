@@ -10,8 +10,7 @@ nixPkgs = [
   "php82Extensions.mbstring",
   "php82Extensions.intl",
   "php82Extensions.simplexml",
-  "php82Extensions.dom",
-  "composer"
+  "php82Extensions.dom"
 ]
 
 [phases.install]
